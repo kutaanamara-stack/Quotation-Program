@@ -20,4 +20,32 @@ body {
 
 .app-shell {
   min-height: 100vh;
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+}
+
+.hero {
+  display: grid;
+  gap: 8px;
+}
+
+.hero h1,
+.hero p {
+  margin: 0;
+}
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+}
+
+.toolbar button {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: #b45309;
+  color: #fff;
+  font: inherit;
 }

@@ -1,15 +1,15 @@
-# Quotation-Program
+# Quotation PDF Web App
 
-餐具修复报价工具。
+Minimal Vite + React shell for the quotation tool.
 
-## 开发
+## Commands
 
 ```bash
 npm install
 npm run dev
 ```
 
-## 测试与构建
+## Test And Build
 
 ```bash
 npm test
