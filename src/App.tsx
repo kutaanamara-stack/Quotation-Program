@@ -7,6 +7,7 @@ import { SummaryPanel } from "./components/SummaryPanel";
 import { Toolbar } from "./components/Toolbar";
 import { createDefaultQuote, recalculateQuote } from "./domain/quote";
 import { validateQuote } from "./domain/validation";
+import { exportQuoteAsPdf, exportQuoteAsPng } from "./export/exportFile";
 import { buildRenderPlan } from "./export/renderPlan";
 import type { QuoteDocument, QuoteItem } from "./types";
 
@@ -40,8 +41,8 @@ function App() {
 
       <Toolbar
         onReset={() => setQuote(recalculateQuote(createDefaultQuote()))}
-        onExportPdf={() => {}}
-        onExportPng={() => {}}
+        onExportPdf={() => void exportQuoteAsPdf(quote)}
+        onExportPng={() => void exportQuoteAsPng(quote)}
         exportDisabled={errors.length > 0}
       />
 

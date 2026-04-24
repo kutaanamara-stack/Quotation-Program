@@ -1,6 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { vi } from "vitest";
+import { exportQuoteAsPdf, exportQuoteAsPng } from "./export/exportFile";
 import App from "./App";
+
+vi.mock("./export/exportFile", () => ({
+  exportQuoteAsPdf: vi.fn().mockResolvedValue(undefined),
+  exportQuoteAsPng: vi.fn().mockResolvedValue(undefined)
+}));
 
 describe("App", () => {
   it("renders the quotation title and export actions", () => {
@@ -37,5 +44,18 @@ describe("App", () => {
 
     expect(screen.getByText(/总金额：18/)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /导出 pdf/i })).toBeEnabled();
+  });
+
+  it("calls the PNG export after the form becomes valid", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.type(screen.getByLabelText(/客户公司名称/i), "同庆楼");
+    await user.clear(screen.getByLabelText(/第 1 行白胚数量/i));
+    await user.type(screen.getByLabelText(/第 1 行白胚数量/i), "1");
+    await user.click(screen.getByRole("button", { name: /导出图片/i }));
+
+    expect(exportQuoteAsPng).toHaveBeenCalledTimes(1);
+    expect(exportQuoteAsPdf).not.toHaveBeenCalled();
   });
 });
