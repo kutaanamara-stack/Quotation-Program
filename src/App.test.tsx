@@ -9,4 +9,10 @@ describe("App", () => {
     expect(screen.getByRole("button", { name: /导出 pdf/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /导出图片/i })).toBeInTheDocument();
   });
+
+  it("shows the default grand total from the quote domain", () => {
+    render(<App />);
+
+    expect(screen.getByText(/当前总金额：0/)).toBeInTheDocument();
+  });
 });
