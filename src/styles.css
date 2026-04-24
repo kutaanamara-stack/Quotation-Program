@@ -20,7 +20,7 @@ body {
 
 .app-shell {
   min-height: 100vh;
-  padding: 24px;
+  padding: 20px;
   display: grid;
   gap: 16px;
 }
@@ -36,11 +36,19 @@ body {
 }
 
 .toolbar {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(255, 248, 239, 0.92);
+  backdrop-filter: blur(14px);
 }
 
-.toolbar button {
+button {
   min-height: 44px;
   padding: 0 16px;
   border: 0;
@@ -48,4 +56,47 @@ body {
   background: #b45309;
   color: #fff;
   font: inherit;
+}
+
+.panel {
+  padding: 16px;
+  border: 1px solid #dbcbb5;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 12px 30px rgba(116, 74, 32, 0.08);
+}
+
+.panel label {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.panel input,
+.panel textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+}
+
+.item-grid {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 900px) {
+  .app-shell {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+  }
+
+  .hero,
+  .toolbar,
+  .item-grid {
+    grid-column: 1 / span 2;
+  }
+
+  .item-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

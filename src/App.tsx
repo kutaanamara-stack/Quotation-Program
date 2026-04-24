@@ -1,37 +1,60 @@
-import { useMemo } from "react";
+import { useState } from "react";
+import { AdvancedSettings } from "./components/AdvancedSettings";
+import { CustomerForm } from "./components/CustomerForm";
+import { LineItemCard } from "./components/LineItemCard";
+import { SummaryPanel } from "./components/SummaryPanel";
+import { Toolbar } from "./components/Toolbar";
 import { createDefaultQuote, recalculateQuote } from "./domain/quote";
 import { validateQuote } from "./domain/validation";
+import type { QuoteDocument, QuoteItem } from "./types";
 
 function App() {
-  const quote = useMemo(() => recalculateQuote(createDefaultQuote()), []);
-  const errors = useMemo(() => validateQuote(quote), [quote]);
+  const [quote, setQuote] = useState(() => recalculateQuote(createDefaultQuote()));
+
+  function updateQuote(patch: Partial<QuoteDocument>) {
+    setQuote((current) => recalculateQuote({ ...current, ...patch }));
+  }
+
+  function updateItem(itemId: string, patch: Partial<QuoteItem>) {
+    setQuote((current) =>
+      recalculateQuote({
+        ...current,
+        items: current.items.map((item) =>
+          item.id === itemId ? { ...item, ...patch } : item
+        )
+      })
+    );
+  }
+
+  const errors = validateQuote(quote);
 
   return (
     <main className="app-shell">
       <header className="hero">
         <h1>餐具修复报价工具</h1>
         <p>内部填写报价并导出正式图片或 PDF。</p>
-        <p>当前总金额：{quote.grandTotal}</p>
       </header>
 
-      {errors.length > 0 ? (
-        <section aria-label="校验提示">
-          <ul>
-            {errors.map((error) => (
-              <li key={error}>{error}</li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
+      <Toolbar
+        onReset={() => setQuote(recalculateQuote(createDefaultQuote()))}
+        onExportPdf={() => {}}
+        onExportPng={() => {}}
+        exportDisabled={errors.length > 0}
+      />
 
-      <section className="toolbar" aria-label="导出操作">
-        <button type="button" disabled={errors.length > 0}>
-          导出 PDF
-        </button>
-        <button type="button" disabled={errors.length > 0}>
-          导出图片
-        </button>
+      <CustomerForm quote={quote} onChange={updateQuote} />
+      <AdvancedSettings
+        globalFactor={quote.globalFactor}
+        onFactorChange={(value) => updateQuote({ globalFactor: value })}
+      />
+
+      <section className="item-grid">
+        {quote.items.map((item, index) => (
+          <LineItemCard key={item.id} index={index} item={item} onChange={updateItem} />
+        ))}
       </section>
+
+      <SummaryPanel total={quote.grandTotal} errors={errors} />
     </main>
   );
 }
