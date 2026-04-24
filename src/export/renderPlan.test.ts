@@ -23,4 +23,12 @@ describe("buildRenderPlan", () => {
 
     expect(plan.text.find((entry) => entry.key === "title")?.fontSize).toBeLessThan(28);
   });
+
+  it("uses relative template asset paths for portable local packages", () => {
+    const quote = createDefaultQuote();
+    const plan = buildRenderPlan(recalculateQuote(quote));
+
+    expect(plan.templateSrc).toBe("./template/quotation-template.png");
+    expect(plan.logoSrc).toBe("./template/studio-logo.jpg");
+  });
 });

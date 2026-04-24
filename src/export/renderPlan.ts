@@ -113,8 +113,8 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
   return {
     width: 1121,
     height: 793,
-    templateSrc: "/template/quotation-template.png",
-    logoSrc: "/template/studio-logo.jpg",
+    templateSrc: "./template/quotation-template.png",
+    logoSrc: "./template/studio-logo.jpg",
     text
   };
 }
