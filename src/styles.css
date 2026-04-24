@@ -1,0 +1,23 @@
+:root {
+  font-family: "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  color: #1f2937;
+  background: linear-gradient(180deg, #f8f3ea 0%, #fffdf9 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
