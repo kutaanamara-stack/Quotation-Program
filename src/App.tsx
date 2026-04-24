@@ -2,10 +2,12 @@ import { useState } from "react";
 import { AdvancedSettings } from "./components/AdvancedSettings";
 import { CustomerForm } from "./components/CustomerForm";
 import { LineItemCard } from "./components/LineItemCard";
+import { PreviewPanel } from "./components/PreviewPanel";
 import { SummaryPanel } from "./components/SummaryPanel";
 import { Toolbar } from "./components/Toolbar";
 import { createDefaultQuote, recalculateQuote } from "./domain/quote";
 import { validateQuote } from "./domain/validation";
+import { buildRenderPlan } from "./export/renderPlan";
 import type { QuoteDocument, QuoteItem } from "./types";
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
   }
 
   const errors = validateQuote(quote);
+  const plan = buildRenderPlan(quote);
 
   return (
     <main className="app-shell">
@@ -55,6 +58,7 @@ function App() {
       </section>
 
       <SummaryPanel total={quote.grandTotal} errors={errors} />
+      <PreviewPanel plan={plan} />
     </main>
   );
 }
