@@ -1,8 +1,6 @@
 .worktrees/
+.cache/
 node_modules/
 dist/
 .task1-build/
 .task1-test/
-*.tsbuildinfo
-vite.config.js
-vite.config.d.ts
