@@ -23,6 +23,7 @@ export function LineItemCard({ index, item, onChange }: LineItemCardProps) {
           }
         />
       </label>
+      {item.manualBlankPriceEnabled ? <p className="manual-tag">已手动调整</p> : null}
       <p>白胚单价：{item.quotedBlankPrice}</p>
       <p>行合计：{item.lineTotal}</p>
     </article>

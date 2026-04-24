@@ -49,7 +49,9 @@ function App() {
       <CustomerForm quote={quote} onChange={updateQuote} />
       <AdvancedSettings
         globalFactor={quote.globalFactor}
+        items={quote.items}
         onFactorChange={(value) => updateQuote({ globalFactor: value })}
+        onItemChange={updateItem}
       />
 
       <section className="item-grid">

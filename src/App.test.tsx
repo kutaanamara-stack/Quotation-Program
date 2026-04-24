@@ -58,4 +58,18 @@ describe("App", () => {
     expect(exportQuoteAsPng).toHaveBeenCalledTimes(1);
     expect(exportQuoteAsPdf).not.toHaveBeenCalled();
   });
+
+  it("lets the operator override a single row blank price", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByText(/高级设置/i));
+    await user.click(screen.getByLabelText(/第 2 行手动改单价/i));
+    await user.clear(screen.getByLabelText(/第 2 行白胚单价/i));
+    await user.type(screen.getByLabelText(/第 2 行白胚单价/i), "25");
+    await user.clear(screen.getByLabelText(/第 2 行白胚数量/i));
+    await user.type(screen.getByLabelText(/第 2 行白胚数量/i), "1");
+
+    expect(screen.getByText(/行合计：25/)).toBeInTheDocument();
+  });
 });

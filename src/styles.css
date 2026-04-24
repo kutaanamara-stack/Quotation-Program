@@ -84,6 +84,18 @@ button {
   gap: 12px;
 }
 
+.advanced-row {
+  padding-top: 8px;
+  border-top: 1px dashed #dbcbb5;
+  margin-top: 8px;
+}
+
+.manual-tag {
+  margin: 0;
+  color: #b45309;
+  font-weight: 600;
+}
+
 .preview-host {
   overflow: auto;
 }
