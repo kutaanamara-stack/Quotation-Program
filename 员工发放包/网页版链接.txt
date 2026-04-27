@@ -1,0 +1,5 @@
+电脑本地入口：
+./网页版/index.html
+
+员工手机网页版链接：
+https://kutaanamara-stack.github.io/Quotation-Program/
