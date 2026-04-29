@@ -20,4 +20,107 @@ body {
 
 .app-shell {
   min-height: 100vh;
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.hero {
+  display: grid;
+  gap: 8px;
+}
+
+.hero h1,
+.hero p {
+  margin: 0;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(255, 248, 239, 0.92);
+  backdrop-filter: blur(14px);
+}
+
+button {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: #b45309;
+  color: #fff;
+  font: inherit;
+}
+
+.panel {
+  padding: 16px;
+  border: 1px solid #dbcbb5;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 12px 30px rgba(116, 74, 32, 0.08);
+}
+
+.panel label {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.panel input,
+.panel textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+}
+
+.item-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.advanced-row {
+  padding-top: 8px;
+  border-top: 1px dashed #dbcbb5;
+  margin-top: 8px;
+}
+
+.manual-tag {
+  margin: 0;
+  color: #b45309;
+  font-weight: 600;
+}
+
+.preview-host {
+  overflow: auto;
+}
+
+.preview-host canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+}
+
+@media (min-width: 900px) {
+  .app-shell {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+  }
+
+  .hero,
+  .toolbar,
+  .item-grid {
+    grid-column: 1 / span 2;
+  }
+
+  .item-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
