@@ -9,11 +9,20 @@ export type TextInstruction = {
   align?: CanvasTextAlign;
 };
 
+export type ClearInstruction = {
+  key: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+
 export type RenderPlan = {
   width: number;
   height: number;
   templateSrc: string;
   logoSrc: string;
+  clear: ClearInstruction[];
   text: TextInstruction[];
 };
 
@@ -30,6 +39,34 @@ function titleFontSize(companyName: string): number {
 }
 
 export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
+  const totals = quote.items.reduce(
+    (acc, item) => ({
+      blankQuantity: acc.blankQuantity + item.blankQuantity,
+      blankAmount: acc.blankAmount + item.blankAmount,
+      simplePatternQuantity: acc.simplePatternQuantity + item.simplePatternQuantity,
+      complexPatternQuantity: acc.complexPatternQuantity + item.complexPatternQuantity,
+      patternAmount: acc.patternAmount + item.patternAmount
+    }),
+    {
+      blankQuantity: 0,
+      blankAmount: 0,
+      simplePatternQuantity: 0,
+      complexPatternQuantity: 0,
+      patternAmount: 0
+    }
+  );
+
+  const clear: ClearInstruction[] = [
+    { key: "title", x: 320, y: 98, width: 480, height: 42 },
+    { key: "date", x: 665, y: 155, width: 340, height: 36 },
+    { key: "total-blank-qty", x: 438, y: 520, width: 68, height: 22 },
+    { key: "total-blank-amount", x: 520, y: 520, width: 62, height: 22 },
+    { key: "total-simple-qty", x: 665, y: 520, width: 62, height: 22 },
+    { key: "total-complex-qty", x: 807, y: 520, width: 62, height: 22 },
+    { key: "total-pattern-amount", x: 878, y: 520, width: 66, height: 22 },
+    { key: "grand-total", x: 900, y: 548, width: 70, height: 28 }
+  ];
+
   const text: TextInstruction[] = [
     {
       key: "title",
@@ -52,11 +89,62 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
       x: 935,
       y: 571,
       fontSize: 20
+    },
+    {
+      key: "total-blank-qty",
+      value: String(totals.blankQuantity),
+      x: 486,
+      y: 537,
+      fontSize: 16,
+      align: "center"
+    },
+    {
+      key: "total-blank-amount",
+      value: String(totals.blankAmount),
+      x: 560,
+      y: 537,
+      fontSize: 16,
+      align: "center"
+    },
+    {
+      key: "total-simple-qty",
+      value: String(totals.simplePatternQuantity),
+      x: 705,
+      y: 537,
+      fontSize: 16,
+      align: "center"
+    },
+    {
+      key: "total-complex-qty",
+      value: String(totals.complexPatternQuantity),
+      x: 847,
+      y: 537,
+      fontSize: 16,
+      align: "center"
+    },
+    {
+      key: "total-pattern-amount",
+      value: String(totals.patternAmount),
+      x: 935,
+      y: 537,
+      fontSize: 16,
+      align: "center"
     }
   ];
 
   quote.items.forEach((item, index) => {
     const rowY = 265 + index * 48;
+
+    clear.push(
+      { key: `blank-price-${item.id}`, x: 365, y: rowY - 21, width: 60, height: 26 },
+      { key: `blank-qty-${item.id}`, x: 440, y: rowY - 21, width: 66, height: 26 },
+      { key: `blank-amount-${item.id}`, x: 520, y: rowY - 21, width: 62, height: 26 },
+      { key: `simple-price-${item.id}`, x: 592, y: rowY - 21, width: 60, height: 26 },
+      { key: `simple-qty-${item.id}`, x: 665, y: rowY - 21, width: 62, height: 26 },
+      { key: `complex-price-${item.id}`, x: 735, y: rowY - 21, width: 60, height: 26 },
+      { key: `complex-qty-${item.id}`, x: 807, y: rowY - 21, width: 62, height: 26 },
+      { key: `pattern-amount-${item.id}`, x: 878, y: rowY - 21, width: 66, height: 26 }
+    );
 
     text.push(
       {
@@ -84,9 +172,25 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
         align: "center"
       },
       {
+        key: `simple-price-${item.id}`,
+        value: String(item.simplePatternPrice),
+        x: 622,
+        y: rowY,
+        fontSize: 15,
+        align: "center"
+      },
+      {
         key: `simple-qty-${item.id}`,
         value: String(item.simplePatternQuantity),
         x: 705,
+        y: rowY,
+        fontSize: 15,
+        align: "center"
+      },
+      {
+        key: `complex-price-${item.id}`,
+        value: String(item.complexPatternPrice),
+        x: 764,
         y: rowY,
         fontSize: 15,
         align: "center"
@@ -115,6 +219,7 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
     height: 793,
     templateSrc: "./template/quotation-template.png",
     logoSrc: "./template/studio-logo.jpg",
+    clear,
     text
   };
 }

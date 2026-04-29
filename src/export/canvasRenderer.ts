@@ -29,6 +29,12 @@ export async function renderPlanToCanvas(
 
   ctx.scale(scale, scale);
   ctx.drawImage(template, 0, 0, plan.width, plan.height);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(70, 92, 78, 100);
+  for (const entry of plan.clear) {
+    ctx.fillRect(entry.x, entry.y, entry.width, entry.height);
+  }
+
   ctx.drawImage(logo, 74, 95, 70, 95);
   ctx.fillStyle = "#111827";
 

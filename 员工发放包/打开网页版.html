@@ -11,38 +11,51 @@
         display: grid;
         place-items: center;
         font-family: "Microsoft YaHei", "Noto Sans SC", sans-serif;
-        background: linear-gradient(180deg, #f8f3ea 0%, #fffdf9 100%);
+        background: linear-gradient(180deg, #f6f1e8 0%, #fffdf8 100%);
         color: #1f2937;
       }
 
       .card {
-        max-width: 720px;
+        width: min(720px, calc(100vw - 32px));
         padding: 24px;
-        border: 1px solid #dbcbb5;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.92);
-        box-shadow: 0 12px 30px rgba(116, 74, 32, 0.08);
+        border: 1px solid #d9cbb6;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 14px 34px rgba(102, 69, 32, 0.1);
+      }
+
+      h1 {
+        margin: 0 0 16px;
+        font-size: 28px;
+      }
+
+      p,
+      li {
+        line-height: 1.75;
       }
 
       code {
-        background: #f3eadc;
+        background: #f2eadf;
         padding: 2px 6px;
         border-radius: 6px;
+      }
+
+      a {
+        color: #8a4f1d;
+        font-weight: 700;
       }
     </style>
   </head>
   <body>
-    <div class="card">
+    <main class="card">
       <h1>餐具修复报价工具入口</h1>
-      <p>这个网页版不能直接靠双击 <code>网页版/index.html</code> 打开，否则部分浏览器会显示空白页。</p>
-      <p>请按下面方式使用：</p>
+      <p>电脑端不要直接双击 <code>webapp/index.html</code>，部分浏览器会显示空白页。</p>
+      <p>推荐入口：</p>
       <ol>
-        <li>电脑双击 <code>启动网页版.cmd</code></li>
-        <li>浏览器会自动打开工具页面</li>
-        <li>如果手机也要打开，请在电脑弹出的窗口里查看局域网地址，然后在同一 Wi-Fi 下用手机浏览器访问</li>
+        <li>电脑端：双击 <code>start-webapp.cmd</code>，浏览器会自动打开。</li>
+        <li>手机端无需连接公司 Wi-Fi：打开公网链接 <a href="https://kutaanamara-stack.github.io/Quotation-Program/">https://kutaanamara-stack.github.io/Quotation-Program/</a>。</li>
       </ol>
-      <p>手机公网链接（如果 GitHub Pages 已发布成功）：</p>
-      <p><code>https://kutaanamara-stack.github.io/Quotation-Program/</code></p>
-    </div>
+      <p>如果公网链接暂时打不开，请联系管理员确认 GitHub Pages 是否已经发布完成。</p>
+    </main>
   </body>
 </html>
