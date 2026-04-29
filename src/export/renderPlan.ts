@@ -57,14 +57,14 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
   );
 
   const clear: ClearInstruction[] = [
-    { key: "title", x: 320, y: 98, width: 480, height: 42 },
-    { key: "date", x: 665, y: 155, width: 340, height: 36 },
-    { key: "total-blank-qty", x: 438, y: 520, width: 68, height: 22 },
-    { key: "total-blank-amount", x: 520, y: 520, width: 62, height: 22 },
-    { key: "total-simple-qty", x: 665, y: 520, width: 62, height: 22 },
-    { key: "total-complex-qty", x: 807, y: 520, width: 62, height: 22 },
-    { key: "total-pattern-amount", x: 878, y: 520, width: 66, height: 22 },
-    { key: "grand-total", x: 900, y: 548, width: 70, height: 28 }
+    { key: "title", x: 250, y: 82, width: 620, height: 70 },
+    { key: "date", x: 610, y: 148, width: 410, height: 48 },
+    { key: "total-blank-qty", x: 438, y: 511, width: 68, height: 36 },
+    { key: "total-blank-amount", x: 520, y: 511, width: 62, height: 36 },
+    { key: "total-simple-qty", x: 665, y: 511, width: 62, height: 36 },
+    { key: "total-complex-qty", x: 807, y: 511, width: 62, height: 36 },
+    { key: "total-pattern-amount", x: 878, y: 511, width: 66, height: 36 },
+    { key: "grand-total", x: 890, y: 538, width: 92, height: 42 }
   ];
 
   const text: TextInstruction[] = [
@@ -136,14 +136,14 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
     const rowY = 265 + index * 48;
 
     clear.push(
-      { key: `blank-price-${item.id}`, x: 365, y: rowY - 21, width: 60, height: 26 },
-      { key: `blank-qty-${item.id}`, x: 440, y: rowY - 21, width: 66, height: 26 },
-      { key: `blank-amount-${item.id}`, x: 520, y: rowY - 21, width: 62, height: 26 },
-      { key: `simple-price-${item.id}`, x: 592, y: rowY - 21, width: 60, height: 26 },
-      { key: `simple-qty-${item.id}`, x: 665, y: rowY - 21, width: 62, height: 26 },
-      { key: `complex-price-${item.id}`, x: 735, y: rowY - 21, width: 60, height: 26 },
-      { key: `complex-qty-${item.id}`, x: 807, y: rowY - 21, width: 62, height: 26 },
-      { key: `pattern-amount-${item.id}`, x: 878, y: rowY - 21, width: 66, height: 26 }
+      { key: `blank-price-${item.id}`, x: 365, y: rowY - 35, width: 60, height: 45 },
+      { key: `blank-qty-${item.id}`, x: 440, y: rowY - 35, width: 66, height: 45 },
+      { key: `blank-amount-${item.id}`, x: 520, y: rowY - 35, width: 62, height: 45 },
+      { key: `simple-price-${item.id}`, x: 592, y: rowY - 35, width: 60, height: 45 },
+      { key: `simple-qty-${item.id}`, x: 665, y: rowY - 35, width: 62, height: 45 },
+      { key: `complex-price-${item.id}`, x: 735, y: rowY - 35, width: 60, height: 45 },
+      { key: `complex-qty-${item.id}`, x: 807, y: rowY - 35, width: 62, height: 45 },
+      { key: `pattern-amount-${item.id}`, x: 878, y: rowY - 35, width: 66, height: 45 }
     );
 
     text.push(
