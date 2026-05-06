@@ -28,7 +28,7 @@ export function PreviewPanel({ plan }: PreviewPanelProps) {
 
   return (
     <section className="panel">
-      <h2>正式文件预览</h2>
+      <h2>{'\u6b63\u5f0f\u6587\u4ef6\u9884\u89c8'}</h2>
       <div ref={hostRef} className="preview-host" />
     </section>
   );

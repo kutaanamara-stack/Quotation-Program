@@ -7,6 +7,16 @@ export type TextInstruction = {
   y: number;
   fontSize: number;
   align?: CanvasTextAlign;
+  box?: TextBox;
+  minFontSize?: number;
+};
+
+export type TextBox = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  padding?: number;
 };
 
 export type ClearInstruction = {
@@ -74,62 +84,79 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
       x: 560,
       y: 130,
       fontSize: titleFontSize(quote.companyName),
-      align: "center"
+      align: "center",
+      box: { x: 240, y: 100, width: 640, height: 60, padding: 12 },
+      minFontSize: 18
     },
     {
       key: "date",
       value: quote.quoteDate.split("-").join(". "),
-      x: 760,
-      y: 182,
-      fontSize: 14
+      x: 770,
+      y: 176,
+      fontSize: 13,
+      align: "left",
+      box: { x: 760, y: 160, width: 145, height: 28, padding: 4 },
+      minFontSize: 10
     },
     {
       key: "grand-total",
       value: String(quote.grandTotal),
-      x: 910,
-      y: 571,
-      fontSize: 18,
-      align: "center"
+      x: 909,
+      y: 561,
+      fontSize: 14,
+      align: "center",
+      box: { x: 871, y: 547, width: 76, height: 28, padding: 4 },
+      minFontSize: 10
     },
     {
       key: "total-blank-qty",
       value: String(totals.blankQuantity),
-      x: 486,
+      x: 470,
       y: 537,
       fontSize: 14,
-      align: "center"
+      align: "center",
+      box: { x: 432, y: 523, width: 76, height: 24, padding: 4 },
+      minFontSize: 9
     },
     {
       key: "total-blank-amount",
       value: String(totals.blankAmount),
-      x: 560,
+      x: 547,
       y: 537,
       fontSize: 14,
-      align: "center"
+      align: "center",
+      box: { x: 508, y: 523, width: 78, height: 24, padding: 4 },
+      minFontSize: 9
     },
     {
       key: "total-simple-qty",
       value: String(totals.simplePatternQuantity),
-      x: 705,
+      x: 692,
       y: 537,
       fontSize: 14,
-      align: "center"
+      align: "center",
+      box: { x: 657, y: 523, width: 71, height: 24, padding: 4 },
+      minFontSize: 9
     },
     {
       key: "total-complex-qty",
       value: String(totals.complexPatternQuantity),
-      x: 847,
+      x: 836,
       y: 537,
       fontSize: 14,
-      align: "center"
+      align: "center",
+      box: { x: 800, y: 523, width: 71, height: 24, padding: 4 },
+      minFontSize: 9
     },
     {
       key: "total-pattern-amount",
       value: String(totals.patternAmount),
-      x: 910,
+      x: 909,
       y: 537,
       fontSize: 14,
-      align: "center"
+      align: "center",
+      box: { x: 871, y: 523, width: 76, height: 24, padding: 4 },
+      minFontSize: 9
     }
   ];
 
@@ -151,26 +178,32 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
       {
         key: `blank-price-${item.id}`,
         value: String(item.quotedBlankPrice),
-        x: 410,
+        x: 394,
         y: rowY,
         fontSize: 13,
-        align: "center"
+        align: "center",
+        box: { x: 355, y: rowY - 18, width: 77, height: 36, padding: 4 },
+        minFontSize: 9
       },
       {
         key: `blank-qty-${item.id}`,
         value: String(item.blankQuantity),
-        x: 486,
+        x: 470,
         y: rowY,
         fontSize: 13,
-        align: "center"
+        align: "center",
+        box: { x: 432, y: rowY - 18, width: 76, height: 36, padding: 4 },
+        minFontSize: 9
       },
       {
         key: `blank-amount-${item.id}`,
         value: String(item.blankAmount),
-        x: 560,
+        x: 547,
         y: rowY,
         fontSize: 13,
-        align: "center"
+        align: "center",
+        box: { x: 508, y: rowY - 18, width: 78, height: 36, padding: 4 },
+        minFontSize: 9
       },
       {
         key: `simple-price-${item.id}`,
@@ -178,15 +211,19 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
         x: 622,
         y: rowY,
         fontSize: 13,
-        align: "center"
+        align: "center",
+        box: { x: 586, y: rowY - 18, width: 71, height: 36, padding: 4 },
+        minFontSize: 9
       },
       {
         key: `simple-qty-${item.id}`,
         value: String(item.simplePatternQuantity),
-        x: 705,
+        x: 692,
         y: rowY,
         fontSize: 13,
-        align: "center"
+        align: "center",
+        box: { x: 657, y: rowY - 18, width: 71, height: 36, padding: 4 },
+        minFontSize: 9
       },
       {
         key: `complex-price-${item.id}`,
@@ -194,23 +231,29 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
         x: 764,
         y: rowY,
         fontSize: 13,
-        align: "center"
+        align: "center",
+        box: { x: 728, y: rowY - 18, width: 72, height: 36, padding: 4 },
+        minFontSize: 9
       },
       {
         key: `complex-qty-${item.id}`,
         value: String(item.complexPatternQuantity),
-        x: 847,
+        x: 836,
         y: rowY,
         fontSize: 13,
-        align: "center"
+        align: "center",
+        box: { x: 800, y: rowY - 18, width: 71, height: 36, padding: 4 },
+        minFontSize: 9
       },
       {
         key: `pattern-amount-${item.id}`,
         value: String(item.patternAmount),
-        x: 910,
+        x: 909,
         y: rowY,
         fontSize: 13,
-        align: "center"
+        align: "center",
+        box: { x: 871, y: rowY - 18, width: 76, height: 36, padding: 4 },
+        minFontSize: 9
       }
     );
   });

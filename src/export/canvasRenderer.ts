@@ -29,9 +29,14 @@ export async function renderPlanToCanvas(
   ctx.fillStyle = "#111827";
 
   for (const entry of plan.text) {
-    ctx.font = `${entry.fontSize}px "Microsoft YaHei", sans-serif`;
-    ctx.textAlign = entry.align ?? "left";
-    ctx.fillText(entry.value, entry.x, entry.y);
+    if (entry.box) {
+      drawFittedTextInBox(ctx, entry);
+    } else {
+      ctx.font = `${entry.fontSize}px "Microsoft YaHei", sans-serif`;
+      ctx.textAlign = entry.align ?? "left";
+      ctx.textBaseline = "middle";
+      ctx.fillText(entry.value, entry.x, entry.y);
+    }
   }
 
   return canvas;
@@ -69,7 +74,7 @@ function drawQuotationSheet(
   drawLine(ctx, x[3], y[9], x[3], y[10]);
   drawLine(ctx, x[10], y[9], x[10], y[10]);
   drawLine(ctx, x[2], y[10], x[2], y[11]);
-  drawCenteredText(ctx, "\u65f6\u95f4\uff1a", 710, 182, 14);
+  drawCenteredText(ctx, "\u65f6\u95f4\uff1a", 730, 176, 13);
 
   const headers = [
     "\u5e8f\u53f7",
@@ -112,14 +117,12 @@ function drawQuotationSheet(
   ctx.textAlign = "left";
   ctx.font = '13px "Microsoft YaHei", sans-serif';
   ctx.fillStyle = "#111827";
-  drawTopMultilineText(
+  drawTopMultilineTextInBox(
     ctx,
     "1\u3001\u91d1\u989d\u5747\u4e3a\u672a\u7a0e\u91d1\u989d\uff0c\u5982\u9700\u5f00\u7968\uff0c\u4e13\u7968+3%\uff0c\u666e\u7968+1%\uff1b\n2\u3001\u5229\u8d28\u4e3a\u98df\u54c1\u7ea7\u63a5\u89e6\u6750\u6599\uff0c\u53ef\u63d0\u4f9b\u68c0\u6d4b\u62a5\u544a\uff1b\n3\u3001\u8d28\u4fdd\u671f3\u4e2a\u6708\uff1b",
-    225,
-    590,
-    12,
-    18,
-    "left"
+    { x: x[2], y: y[10], width: x[11] - x[2], height: y[11] - y[10], padding: 12 },
+    11,
+    16
   );
   drawCenteredText(ctx, "\u7b7e\u5b57\u786e\u8ba4\uff1a", 735, 672, 13);
 }
@@ -181,20 +184,88 @@ function drawMultilineText(
   });
 }
 
-function drawTopMultilineText(
+function drawFittedTextInBox(
+  ctx: CanvasRenderingContext2D,
+  entry: RenderPlan["text"][number]
+) {
+  if (!entry.box) {
+    return;
+  }
+
+  const padding = entry.box.padding ?? 4;
+  const maxWidth = Math.max(1, entry.box.width - padding * 2);
+  const minFontSize = entry.minFontSize ?? 8;
+  let fontSize = entry.fontSize;
+
+  while (fontSize > minFontSize) {
+    ctx.font = `${fontSize}px "Microsoft YaHei", sans-serif`;
+    if (ctx.measureText(entry.value).width <= maxWidth) {
+      break;
+    }
+    fontSize -= 1;
+  }
+
+  const align = entry.align ?? "center";
+  const x =
+    align === "left"
+      ? entry.box.x + padding
+      : align === "right"
+        ? entry.box.x + entry.box.width - padding
+        : entry.box.x + entry.box.width / 2;
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(entry.box.x, entry.box.y, entry.box.width, entry.box.height);
+  ctx.clip();
+  ctx.fillStyle = "#111827";
+  ctx.font = `${fontSize}px "Microsoft YaHei", sans-serif`;
+  ctx.textAlign = align;
+  ctx.textBaseline = "middle";
+  ctx.fillText(entry.value, x, entry.box.y + entry.box.height / 2, maxWidth);
+  ctx.restore();
+}
+
+function drawTopMultilineTextInBox(
   ctx: CanvasRenderingContext2D,
   text: string,
-  x: number,
-  y: number,
-  fontSize: number,
-  lineHeight: number,
+  box: { x: number; y: number; width: number; height: number; padding: number },
+  preferredFontSize: number,
+  preferredLineHeight: number,
   align: CanvasTextAlign = "center"
 ) {
+  const lines = text.split("\n");
+  const maxWidth = box.width - box.padding * 2;
+  const maxHeight = box.height - box.padding * 2;
+  let fontSize = preferredFontSize;
+  let lineHeight = preferredLineHeight;
+
+  while (fontSize > 8) {
+    ctx.font = `${fontSize}px "Microsoft YaHei", sans-serif`;
+    const widestLine = Math.max(...lines.map((line) => ctx.measureText(line).width));
+    if (widestLine <= maxWidth && lineHeight * lines.length <= maxHeight) {
+      break;
+    }
+    fontSize -= 1;
+    lineHeight = Math.max(12, preferredLineHeight - (preferredFontSize - fontSize));
+  }
+
+  const x =
+    align === "left"
+      ? box.x + box.padding
+      : align === "right"
+        ? box.x + box.width - box.padding
+        : box.x + box.width / 2;
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(box.x, box.y, box.width, box.height);
+  ctx.clip();
   ctx.fillStyle = "#111827";
   ctx.font = `${fontSize}px "Microsoft YaHei", sans-serif`;
   ctx.textAlign = align;
   ctx.textBaseline = "top";
-  text.split("\n").forEach((line, index) => {
-    ctx.fillText(line, x, y + index * lineHeight);
+  lines.forEach((line, index) => {
+    ctx.fillText(line, x, box.y + box.padding + index * lineHeight, maxWidth);
   });
+  ctx.restore();
 }
