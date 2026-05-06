@@ -35,6 +35,7 @@ if ($localIp) {
 }
 
 Write-Host "Public mobile URL: https://kutaanamara-stack.github.io/Quotation-Program/mobile.html" -ForegroundColor Cyan
+Write-Host "Backup CDN mobile URL: https://cdn.jsdelivr.net/gh/kutaanamara-stack/Quotation-Program@main/mobile-offline.html" -ForegroundColor Cyan
 Write-Host "Close this window to stop the server." -ForegroundColor DarkGray
 Start-Process $desktopUrl
 

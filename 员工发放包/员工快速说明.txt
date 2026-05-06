@@ -5,11 +5,15 @@
 2. 等浏览器自动打开报价工具
 3. 使用期间不要关闭启动窗口
 
-手机端：
-直接打开公网分享入口：
+手机端优先入口：
 https://kutaanamara-stack.github.io/Quotation-Program/mobile.html
 
-这个链接是轻量入口页，会自动跳转到正式报价工具。
+如果对方打不开上面的链接，请改发备用 CDN 单文件链接：
+https://cdn.jsdelivr.net/gh/kutaanamara-stack/Quotation-Program@main/mobile-offline.html
+
+如果备用 CDN 也打不开，请直接把“手机离线版.html”这个文件发给对方。
+这个文件不依赖网络，手机收到后用浏览器打开即可使用。
+
 如果在微信里点开失败，请点右上角，选择“在浏览器打开”。
 如果手机浏览器仍打不开，请把手机型号、运营商和错误截图发给管理员。
 
