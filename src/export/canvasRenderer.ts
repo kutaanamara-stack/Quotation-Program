@@ -69,6 +69,7 @@ function drawQuotationSheet(
   drawLine(ctx, x[3], y[9], x[3], y[10]);
   drawLine(ctx, x[10], y[9], x[10], y[10]);
   drawLine(ctx, x[2], y[10], x[2], y[11]);
+  drawCenteredText(ctx, "\u65f6\u95f4\uff1a", 710, 182, 14);
 
   const headers = [
     "\u5e8f\u53f7",
@@ -85,7 +86,7 @@ function drawQuotationSheet(
   ];
 
   headers.forEach((label, index) => {
-    drawMultilineText(ctx, label, (x[index] + x[index + 1]) / 2, 213, 16, 20);
+    drawMultilineText(ctx, label, (x[index] + x[index + 1]) / 2, 213, 12, 16);
   });
 
   const specs = [
@@ -99,25 +100,25 @@ function drawQuotationSheet(
   const rowCenters = [265, 313, 361, 409, 457, 505];
 
   rowCenters.forEach((rowY, index) => {
-    drawCenteredText(ctx, String(index + 1), (x[0] + x[1]) / 2, rowY, 13);
-    drawCenteredText(ctx, specs[index], (x[1] + x[2]) / 2, rowY, 13);
+    drawCenteredText(ctx, String(index + 1), (x[0] + x[1]) / 2, rowY, 12);
+    drawCenteredText(ctx, specs[index], (x[1] + x[2]) / 2, rowY, 12);
   });
 
-  drawCenteredText(ctx, "\u89c6\u4fee\u590d\u96be\u5ea6\u5355\u8bae", (x[2] + x[3]) / 2, 505, 13);
-  drawCenteredText(ctx, "\u5408\u8ba1", (x[0] + x[2]) / 2, 535, 18, true);
-  drawCenteredText(ctx, "\u603b\u8ba1\u91d1\u989d\uff08\u672a\u7a0e\uff09", (x[3] + x[10]) / 2, 562, 18, true);
-  drawCenteredText(ctx, "\u5907\u6ce8", (x[0] + x[2]) / 2, 615, 22, true);
+  drawCenteredText(ctx, "\u89c6\u4fee\u590d\u96be\u5ea6\u5355\u8bae", (x[2] + x[3]) / 2, 505, 12);
+  drawCenteredText(ctx, "\u5408\u8ba1", (x[0] + x[2]) / 2, 535, 16, true);
+  drawCenteredText(ctx, "\u603b\u8ba1\u91d1\u989d\uff08\u672a\u7a0e\uff09", (x[3] + x[10]) / 2, 562, 16, true);
+  drawCenteredText(ctx, "\u5907\u6ce8", (x[0] + x[2]) / 2, 615, 20, true);
 
   ctx.textAlign = "left";
   ctx.font = '13px "Microsoft YaHei", sans-serif';
   ctx.fillStyle = "#111827";
-  drawMultilineText(
+  drawTopMultilineText(
     ctx,
     "1\u3001\u91d1\u989d\u5747\u4e3a\u672a\u7a0e\u91d1\u989d\uff0c\u5982\u9700\u5f00\u7968\uff0c\u4e13\u7968+3%\uff0c\u666e\u7968+1%\uff1b\n2\u3001\u5229\u8d28\u4e3a\u98df\u54c1\u7ea7\u63a5\u89e6\u6750\u6599\uff0c\u53ef\u63d0\u4f9b\u68c0\u6d4b\u62a5\u544a\uff1b\n3\u3001\u8d28\u4fdd\u671f3\u4e2a\u6708\uff1b",
     225,
-    598,
-    13,
-    22,
+    590,
+    12,
+    18,
     "left"
   );
   drawCenteredText(ctx, "\u7b7e\u5b57\u786e\u8ba4\uff1a", 735, 672, 13);
@@ -177,5 +178,23 @@ function drawMultilineText(
   text.split("\n").forEach((line, index, lines) => {
     const offset = (index - (lines.length - 1) / 2) * lineHeight;
     ctx.fillText(line, x, y + offset);
+  });
+}
+
+function drawTopMultilineText(
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  x: number,
+  y: number,
+  fontSize: number,
+  lineHeight: number,
+  align: CanvasTextAlign = "center"
+) {
+  ctx.fillStyle = "#111827";
+  ctx.font = `${fontSize}px "Microsoft YaHei", sans-serif`;
+  ctx.textAlign = align;
+  ctx.textBaseline = "top";
+  text.split("\n").forEach((line, index) => {
+    ctx.fillText(line, x, y + index * lineHeight);
   });
 }

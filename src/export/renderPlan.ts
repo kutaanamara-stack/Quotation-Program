@@ -70,7 +70,7 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
   const text: TextInstruction[] = [
     {
       key: "title",
-      value: `${quote.companyName}餐具修复报价单`,
+      value: `${quote.companyName}\u9910\u5177\u4fee\u590d\u62a5\u4ef7\u5355`,
       x: 560,
       y: 130,
       fontSize: titleFontSize(quote.companyName),
@@ -79,23 +79,24 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
     {
       key: "date",
       value: quote.quoteDate.split("-").join(". "),
-      x: 910,
+      x: 760,
       y: 182,
-      fontSize: 16
+      fontSize: 14
     },
     {
       key: "grand-total",
       value: String(quote.grandTotal),
-      x: 935,
+      x: 910,
       y: 571,
-      fontSize: 20
+      fontSize: 18,
+      align: "center"
     },
     {
       key: "total-blank-qty",
       value: String(totals.blankQuantity),
       x: 486,
       y: 537,
-      fontSize: 16,
+      fontSize: 14,
       align: "center"
     },
     {
@@ -103,7 +104,7 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
       value: String(totals.blankAmount),
       x: 560,
       y: 537,
-      fontSize: 16,
+      fontSize: 14,
       align: "center"
     },
     {
@@ -111,7 +112,7 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
       value: String(totals.simplePatternQuantity),
       x: 705,
       y: 537,
-      fontSize: 16,
+      fontSize: 14,
       align: "center"
     },
     {
@@ -119,15 +120,15 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
       value: String(totals.complexPatternQuantity),
       x: 847,
       y: 537,
-      fontSize: 16,
+      fontSize: 14,
       align: "center"
     },
     {
       key: "total-pattern-amount",
       value: String(totals.patternAmount),
-      x: 935,
+      x: 910,
       y: 537,
-      fontSize: 16,
+      fontSize: 14,
       align: "center"
     }
   ];
@@ -152,7 +153,7 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
         value: String(item.quotedBlankPrice),
         x: 410,
         y: rowY,
-        fontSize: 15,
+        fontSize: 13,
         align: "center"
       },
       {
@@ -160,7 +161,7 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
         value: String(item.blankQuantity),
         x: 486,
         y: rowY,
-        fontSize: 15,
+        fontSize: 13,
         align: "center"
       },
       {
@@ -168,7 +169,7 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
         value: String(item.blankAmount),
         x: 560,
         y: rowY,
-        fontSize: 15,
+        fontSize: 13,
         align: "center"
       },
       {
@@ -176,7 +177,7 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
         value: String(item.simplePatternPrice),
         x: 622,
         y: rowY,
-        fontSize: 15,
+        fontSize: 13,
         align: "center"
       },
       {
@@ -184,7 +185,7 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
         value: String(item.simplePatternQuantity),
         x: 705,
         y: rowY,
-        fontSize: 15,
+        fontSize: 13,
         align: "center"
       },
       {
@@ -192,7 +193,7 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
         value: String(item.complexPatternPrice),
         x: 764,
         y: rowY,
-        fontSize: 15,
+        fontSize: 13,
         align: "center"
       },
       {
@@ -200,15 +201,15 @@ export function buildRenderPlan(quote: QuoteDocument): RenderPlan {
         value: String(item.complexPatternQuantity),
         x: 847,
         y: rowY,
-        fontSize: 15,
+        fontSize: 13,
         align: "center"
       },
       {
         key: `pattern-amount-${item.id}`,
         value: String(item.patternAmount),
-        x: 935,
+        x: 910,
         y: rowY,
-        fontSize: 15,
+        fontSize: 13,
         align: "center"
       }
     );
