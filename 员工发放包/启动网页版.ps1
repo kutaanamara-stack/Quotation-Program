@@ -34,6 +34,7 @@ if ($localIp) {
   Write-Host "LAN IP not detected automatically." -ForegroundColor Yellow
 }
 
+Write-Host "Public mobile URL: https://kutaanamara-stack.github.io/Quotation-Program/index.html" -ForegroundColor Cyan
 Write-Host "Close this window to stop the server." -ForegroundColor DarkGray
 Start-Process $desktopUrl
 

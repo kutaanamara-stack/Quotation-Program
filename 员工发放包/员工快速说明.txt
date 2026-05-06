@@ -6,8 +6,11 @@
 3. 使用期间不要关闭启动窗口
 
 手机端：
-直接打开公网链接：
-https://kutaanamara-stack.github.io/Quotation-Program/
+直接打开公网直达链接：
+https://kutaanamara-stack.github.io/Quotation-Program/index.html
+
+如果在微信里点开失败，请点右上角，选择“在浏览器打开”。
+如果手机浏览器仍打不开，请把手机型号、运营商和错误截图发给管理员。
 
 填写和导出：
 1. 输入客户公司名称
