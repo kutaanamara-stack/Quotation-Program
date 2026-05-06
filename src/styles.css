@@ -79,6 +79,36 @@ button {
   padding: 10px 12px;
 }
 
+.share-panel {
+  display: grid;
+  gap: 10px;
+}
+
+.share-panel h2,
+.share-panel p {
+  margin: 0;
+}
+
+.share-panel a {
+  overflow-wrap: anywhere;
+  color: #92400e;
+  font-weight: 700;
+}
+
+.share-panel button {
+  justify-self: start;
+}
+
+.share-message {
+  color: #166534;
+  font-weight: 700;
+}
+
+.share-note {
+  color: #6b7280;
+  font-size: 14px;
+}
+
 .item-grid {
   display: grid;
   gap: 12px;
@@ -115,6 +145,7 @@ button {
   }
 
   .hero,
+  .share-panel,
   .toolbar,
   .item-grid {
     grid-column: 1 / span 2;

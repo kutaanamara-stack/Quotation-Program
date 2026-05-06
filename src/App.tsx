@@ -3,6 +3,7 @@ import { AdvancedSettings } from "./components/AdvancedSettings";
 import { CustomerForm } from "./components/CustomerForm";
 import { LineItemCard } from "./components/LineItemCard";
 import { PreviewPanel } from "./components/PreviewPanel";
+import { ShareLinkPanel } from "./components/ShareLinkPanel";
 import { SummaryPanel } from "./components/SummaryPanel";
 import { Toolbar } from "./components/Toolbar";
 import { createDefaultQuote, recalculateQuote } from "./domain/quote";
@@ -38,6 +39,8 @@ function App() {
         <h1>餐具修复报价工具</h1>
         <p>内部填写报价并导出正式图片或 PDF。</p>
       </header>
+
+      <ShareLinkPanel />
 
       <Toolbar
         onReset={() => setQuote(recalculateQuote(createDefaultQuote()))}

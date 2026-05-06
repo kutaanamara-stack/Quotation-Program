@@ -6,9 +6,10 @@
 3. 使用期间不要关闭启动窗口
 
 手机端：
-直接打开公网直达链接：
-https://kutaanamara-stack.github.io/Quotation-Program/index.html
+直接打开公网分享入口：
+https://kutaanamara-stack.github.io/Quotation-Program/mobile.html
 
+这个链接是轻量入口页，会自动跳转到正式报价工具。
 如果在微信里点开失败，请点右上角，选择“在浏览器打开”。
 如果手机浏览器仍打不开，请把手机型号、运营商和错误截图发给管理员。
 
